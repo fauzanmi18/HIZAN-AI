@@ -2,8 +2,6 @@ import { Groq } from 'groq-sdk'
 
 const apiKey = import.meta.env.VITE_GROQ_API_KEY
 
-console.log(`api key`, apiKey)
-
 const groq = new Groq({
   apiKey: apiKey,
   dangerouslyAllowBrowser: true

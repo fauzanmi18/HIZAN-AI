@@ -1,31 +1,42 @@
-<script setup>
-import { ref } from 'vue';
-import { groqRequest } from './utils/groq';
-import responseComp from './components/response.vue'
-
-const currentYear = ref(new Date().getFullYear())
-
-const loading = ref(false)
-const contentMessage = ref('')
-const responseMessage = ref('')
-
-const handleRequest = async() => {
-  loading.value = true
-  const ai = await groqRequest(contentMessage.value)
-  console.log(ai.content)
-  responseMessage.value = ai.content
-  loading.value = false
-}
-</script>
-
 <template>
-  <div class="bg-white mx-4 flex flex-col justify-center items-center min-h-[80vh]">
-    <h1 class="mt-6 text-2xl font-semibold text-[#1e1e1e]">HIZAN, Your personal AI Partner</h1>
+  <div class="bg-white my-4 mx-4 flex flex-col items-center min-h-[80vh]">
+    <!--<h1 class="mt-6 text-2xl font-semibold text-[#1e1e1e]">HIZAN, Your personal AI Partner</h1>-->
     
-    <responseComp :text="responseMessage" :typingSpeed="50"/>
-    
-    <label class="text-base text-[#1e1e1e]">Ask me here:</label>
-    <input @keydown.enter.prevent="handleRequest" v-model="contentMessage" class="w-full lg:w-1/2 bg-zinc-200 my-2 p-2 text-[#1e1e1e] rounded-lg placeholder:text-base placeholder:text-gray-600" name="content" placeholder="HIZAN, give me nodejs route example...">
+    <div v-if="!isResponReady" class="w-full lg:w-1/2 my-7 lg:my-12 min-h-[50dvh]">
+      <div class="flex flex-col">
+        <h1 class="font-rubik text-gradient text-4xl lg:text-6xl font-semibold">
+          HIZAN here,
+        </h1>
+        <h1 class="font-sora text-base lg:text-xl font-light text-[#1e1e1e]">
+          Is there anything i can help?
+        </h1>
+      </div>
+
+      <div class="my-20 flex gap-2 justify-start md:justify-center items-center overflow-x-auto hide-scrollbar lg:overflow-x-clip">
+        <div @click="handleCardClick('HIZAN, what movie is popular right now?')" 
+        class="cursor-pointer shrink-0 lg:shrink p-3 w-[186px] lg:w-1/2 bg-white drop-shadow-md rounded-lg border hover:border-[#1e1e1e]">
+          <p class="p-2 text-zinc-600 text-sm text-wrap text-center">
+            HIZAN, what movie is popular right now?
+          </p>
+        </div>
+        <div @click="handleCardClick('HIZAN, what is programming?')" 
+        class="cursor-pointer shrink-0 lg:shrink p-3 w-[186px] lg:w-1/2 bg-white drop-shadow-md rounded-lg border hover:border-[#1e1e1e]">
+          <p class="p-2 text-zinc-600 text-sm text-wrap text-center">
+            HIZAN, what is programming?
+          </p>
+        </div>
+        <div @click="handleCardClick('HIZAN, please give me a romantic phoem')" 
+        class="cursor-pointer shrink-0 lg:shrink p-3 w-[186px] lg:w-1/2 bg-white drop-shadow-md rounded-lg border hover:border-[#1e1e1e]">
+          <p class="p-2 text-zinc-600 text-sm text-wrap text-center">
+            HIZAN, please give me a romantic phoem
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <responseComp v-if="isResponReady" :text="responseMessage" :typingSpeed="50"/>
+
+    <input @keydown.enter.prevent="handleRequest" v-model="contentMessage" class="w-full lg:w-1/2 bg-slate-50 my-2 p-3 text-[#1e1e1e] rounded-lg placeholder:text-base placeholder:text-gray-600 border focus:border-[#1e1e1e] outline-none" name="content" placeholder="Put your question here...">
     
     <button v-if="!loading" @click="handleRequest" class="bg-[#1e1e1e] my-2 px-4 py-2 rounded-lg text-white">
       Ask Zan
@@ -39,7 +50,7 @@ const handleRequest = async() => {
         Loading...
     </button>
 
-    <footer id="footer" class="bg-white pt-4 pb-4 lg:mb-0 mb-14">
+    <footer id="footer" class="bg-white pt-4 pb-4 lg:mb-0">
          <div class="container mx-auto">
              <div class="flex justify-center container mx-auto w-full">
                 <p class="font-medium text-xs lg:text-sm text-[#1e1e1e] text-center">
@@ -47,11 +58,54 @@ const handleRequest = async() => {
                       Fauzan M Iqbal.</a>
                      All Rights Reserved.
                 </p>
-                <!-- <p class="font-bold text-sm text-black text-center">
-                    Made By <span><a href="https://www.instagram.com/fauzanmi18/" class="hover:text-white">Fauzan Muhammad Iqbal</a></span>, Bandung 2023
-                </p> -->
              </div>
          </div>
      </footer>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+import { groqRequest } from './utils/groq';
+import responseComp from './components/response.vue'
+
+const currentYear = ref(new Date().getFullYear())
+
+const loading = ref(false)
+const isResponReady = ref(false)
+
+const contentMessage = ref('')
+const responseMessage = ref('')
+
+const handleRequest = async() => {
+  loading.value = true
+  isResponReady.value = true
+  const ai = await groqRequest(contentMessage.value)
+  responseMessage.value = ai.content
+  loading.value = false
+}
+
+const handleCardClick = (message) => {
+  contentMessage.value = message
+  handleRequest()
+}
+</script>
+
+<style scoped>
+.text-gradient {
+  -webkit-text-fill-color: transparent;
+  background: -webkit-linear-gradient(30deg,#15ca82,#c084fc);
+    background-clip: border-box;
+  -webkit-background-clip: text;
+  display: inline-block;
+  position: relative;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+</style>

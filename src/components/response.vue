@@ -1,5 +1,5 @@
 <template>
-    <textarea v-model="displayedText" class="p-4 bg-zinc-200 rounded-lg my-4 w-full lg:w-1/2 text-gray-600" rows="14" readonly></textarea>
+    <textarea v-model="displayedText" class="border p-4 bg-slate-50 rounded-lg my-4 w-full lg:w-1/2 text-gray-600 text-sm md:text-base lg:text-base" rows="14" readonly></textarea>
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
     name: 'InformasiPribadi',
     props: ['text', 'typingSpeed'],
     setup(props){
-    const displayedText = ref('Ask me anytime, I will answer you everytime!');
+    const displayedText = ref('Processing your request...');
     const currentIndex = ref(0);
 
     const typeText = async () => {
