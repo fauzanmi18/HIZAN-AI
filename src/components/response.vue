@@ -1,5 +1,5 @@
 <template>
-    <textarea v-model="displayedText" class="p-4 bg-zinc-200 rounded-lg my-4 w-1/2 text-gray-600" rows="14" readonly></textarea>
+    <textarea v-model="displayedText" class="p-4 bg-zinc-200 rounded-lg my-4 w-full lg:w-1/2 text-gray-600" rows="14" readonly></textarea>
 </template>
 
 <script>

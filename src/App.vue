@@ -19,12 +19,13 @@ const handleRequest = async() => {
 </script>
 
 <template>
-  <div class="bg-white flex flex-col justify-center items-center min-h-[80vh]">
+  <div class="bg-white mx-4 flex flex-col justify-center items-center min-h-[80vh]">
     <h1 class="mt-6 text-2xl font-semibold text-[#1e1e1e]">HIZAN, Your personal AI Partner</h1>
     
     <responseComp :text="responseMessage" :typingSpeed="50"/>
     
-    <input @keydown.enter.prevent="handleRequest" v-model="contentMessage" class="w-1/2 bg-zinc-200 my-2 p-2 text-[#1e1e1e] rounded-lg placeholder:text-base placeholder:text-gray-600" name="content" placeholder="HIZAN, give me nodejs route example...">
+    <label class="text-base text-[#1e1e1e]">Ask me here:</label>
+    <input @keydown.enter.prevent="handleRequest" v-model="contentMessage" class="w-full lg:w-1/2 bg-zinc-200 my-2 p-2 text-[#1e1e1e] rounded-lg placeholder:text-base placeholder:text-gray-600" name="content" placeholder="HIZAN, give me nodejs route example...">
     
     <button v-if="!loading" @click="handleRequest" class="bg-[#1e1e1e] my-2 px-4 py-2 rounded-lg text-white">
       Ask Zan
