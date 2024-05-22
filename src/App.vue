@@ -25,10 +25,10 @@
             HIZAN, what is programming?
           </p>
         </div>
-        <div @click="handleCardClick('HIZAN, please give me a romantic phoem')" 
+        <div @click="handleCardClick('HIZAN, please give me a romantic poem')" 
         class="cursor-pointer shrink-0 lg:shrink p-3 w-[186px] lg:w-1/2 bg-white drop-shadow-md rounded-lg border hover:border-[#1e1e1e]">
           <p class="p-2 text-zinc-600 text-sm text-wrap text-center">
-            HIZAN, please give me a romantic phoem
+            HIZAN, please give me a romantic poem
           </p>
         </div>
       </div>
